@@ -1,0 +1,114 @@
+{% extends 'Estore/main.html' %}
+<!--  -->
+{% load static %}
+<!--  -->
+{% block content %}
+
+<div class="row">
+  {% for product in products %}
+  <div class="col-lg-4">
+    <img class="thumbnail" src="{{product.image.url}}" />
+    <div class="box-element product">
+      <h6><strong>{{product}}</strong></h6>
+      <hr />
+      <button
+        data-product="{{product.id}}"
+        data-action="add"
+        class="btn btn-outline-secondary add-btn update-cart"
+      >
+        Add to Cart
+      </button>
+      <a class="btn btn-outline-success" href="#">View</a>
+      <h4 style="float: right">&#8377; {{product.price|floatformat:2}}</h4>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="paginator">
+  {% if products.has_previous %}
+  <a href="?page={{products.previous_page_number}}" class="pagination-btn"
+    >&#10094;</a
+  >
+  {% endif %}
+  <div class="sub-paginator">
+    {% for page in pageIndex_range %} {% if page == products.number %}
+    <a href="?page={{page}}" class="page-link current-page">{{page}}</a>
+    {% else %}
+    <a href="?page={{page}}" class="page-link">{{page}}</a>
+    {% endif %} {% endfor %}
+  </div>
+  <!-- next icon -->
+  {% if products.has_next %}
+  <a href="?page={{products.next_page_number}}" class="pagination-btn"
+    >&#10095;</a
+  >
+  {% endif %}
+</div>
+
+<style>
+  .paginator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    font-size: 30px;
+  }
+
+  .pagination-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #18c944;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: #ddede1;
+    cursor: pointer;
+  }
+
+  .pagination-btn:hover {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-decoration: none;
+    background-color: #087f5b;
+    color: #fff;
+  }
+
+  .sub-paginator {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .page-link:link,
+  .page-link:visited {
+    font-size: 26px;
+    text-decoration: none;
+    color: #343a30;
+
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .page-link:hover,
+  .page-link:active {
+    background-color: #087f5b;
+    color: #fff;
+  }
+
+  .page-link.current-page {
+    background-color: #087f5b;
+    color: #fff;
+  }
+</style>
+
+{% endblock content %}

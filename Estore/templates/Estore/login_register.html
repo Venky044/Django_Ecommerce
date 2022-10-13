@@ -1,0 +1,132 @@
+{% extends 'Estore/main.html' %}
+<!--  -->
+{% load static %}
+<!--  -->
+{% block content %}
+<!--  -->
+
+{% if page == 'register' %}
+<div class="login-container">
+  <form method="POST" action="{% url 'register' %}">
+    {% csrf_token %}
+    <!-- {{form.as_p}} -->
+    {% for field in form %}
+    <div>
+      <label>{{field.label}} : {{field}}</label>
+    </div>
+    {% endfor %}
+
+    <!-- <div>
+      <label>{{form.email.label}} : {{form.email}}</label>
+    </div>
+
+    <div>
+      <label>{{form.password1.label}} : {{form.password1}}</label>
+    </div>
+
+    <div>
+      <label>{{form.password2.label}} : {{form.password2}}</label>
+    </div> -->
+
+    <input class="auth-btn" type="submit" value="Register" />
+  </form>
+  <p>
+    Already have an account, please
+    <a class="auth-link" href="{% url 'login' %}">Login</a>
+  </p>
+</div>
+
+{% else %}
+
+<div class="login-container">
+  <form method="POST" action="">
+    {% csrf_token %}
+    <div>
+      <label>Username: </label>
+      <input
+        type="text"
+        class="auth-input"
+        name="username"
+        placeholder="Enter your name.."
+      />
+    </div>
+
+    <div>
+      <label>Password : </label>
+      <input
+        type="text"
+        class="auth-input"
+        name="password"
+        placeholder="Enter your name.."
+      />
+    </div>
+
+    <div>
+      <input class="auth-btn" type="submit" value="LogIn" />
+      <p>
+        If you don't have an account, please
+        <a class="auth-link" href="{% url 'register' %}">Register</a>
+      </p>
+    </div>
+  </form>
+</div>
+{% endif %}
+
+<style>
+  .login-container {
+    border: 1px solid rgb(185, 179, 179);
+    color: rgba(128, 128, 128, 0.9);
+    width: 500px;
+    margin: 50px auto;
+    padding: 10px 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.65);
+  }
+
+  label {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .auth-input {
+    width: 250px;
+    height: 45px;
+    margin-bottom: 10px;
+    border-radius: 2px;
+    border: 1px solid rgb(185, 179, 179);
+  }
+
+  .auth-btn {
+    display: flex;
+    border-radius: 2px;
+    border: 1px solid rgb(185, 179, 179);
+    padding: 5px 15px;
+  }
+
+  .auth-btn:link,
+  .auth-btn:visited {
+    background-color: #fff;
+    color: #000;
+    text-decoration: none;
+  }
+
+  .auth-btn:hover,
+  .auth-btn:active {
+    background-color: #000;
+    color: #fff;
+  }
+
+  p {
+    font-size: 18px;
+  }
+
+  .auth-link:hover,
+  .auth-link:active {
+    text-decoration: none;
+    color: rgb(78, 47, 255);
+    font-weight: bold;
+  }
+</style>
+
+{% endblock content %}
